@@ -4,7 +4,7 @@ import React from "react";
 const Home = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.Text}>Home</Text>
+      <Text style={styles.text}>Home</Text>
     </View>
   );
 };
@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontSize: 14,
+    fontSize: 25,
+    fontFamily: "InriaSans_700Bold",
   },
 });
