@@ -1,5 +1,12 @@
 import Home from "./screens/Home";
-
+import {
+  InriaSans_300Light,
+  InriaSans_300Light_Italic,
+  InriaSans_400Regular,
+  InriaSans_400Regular_Italic,
+  InriaSans_700Bold,
+  InriaSans_700Bold_Italic,
+} from "@expo-google-fonts/inria-sans";
 import Portfolio from "./screens/Portfolio";
 import Pictures from "./screens/Pictures";
 import * as React from "react";
@@ -12,12 +19,12 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   let [fontsLoaded] = useFonts({
-    InriaSans_300Light: require("./assets/fonts/InriaSans-Light.ttf"),
-    InriaSans_300Light_Italic: require("./assets/fonts/InriaSans-LightItalic.ttf"),
-    InriaSans_400Regular: require("./assets/fonts/InriaSans-Regular.ttf"),
-    InriaSans_400Regular_Italic: require("./assets/fonts/InriaSans-Italic.ttf"),
-    InriaSans_700Bold: require("./assets/fonts/InriaSans-Bold.ttf"),
-    InriaSans_700Bold_Italic: require("./assets/fonts/InriaSans-BoldItalic.ttf"),
+    InriaSans_300Light,
+    InriaSans_300Light_Italic,
+    InriaSans_400Regular,
+    InriaSans_400Regular_Italic,
+    InriaSans_700Bold,
+    InriaSans_700Bold_Italic,
   });
 
   if (!fontsLoaded) {

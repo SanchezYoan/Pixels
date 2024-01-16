@@ -1,16 +1,23 @@
 import { View, Text, StyleSheet, Button } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Pictures = ({ navigation }) => {
+  useEffect(() => {
+    return () => {
+      console.log("POP");
+    };
+  });
+
   const handlePress = () => {
-    navigation.goBack();
+    // navigation.popToTop();
+    // retourne à la page racine
+    // navigation.pop();
+    // retourne à la page précédente
   };
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Pictures</Text>
       <Button title="Portfolio" onPress={handlePress} />
-
-      <Button onPress={() => navigation.navigate("Home")} title="Home" />
     </View>
   );
 };

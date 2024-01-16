@@ -1,7 +1,12 @@
 import { View, Text, StyleSheet, Button } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Portfolio = ({ navigation }) => {
+  useEffect(() => {
+    return () => {
+      console.log("Portfolio démonté");
+    };
+  });
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Portfolio</Text>
