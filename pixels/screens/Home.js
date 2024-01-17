@@ -1,5 +1,7 @@
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, Button, FlatList, Image } from "react-native";
 import React from "react";
+import { globalStyle } from "../constants/AppStyle";
+// import { Profils } from "../data/profils";
 
 // {"navigation": {
 //   "addListener": [Function addListener],
@@ -24,29 +26,69 @@ import React from "react";
 //     "params": undefined}}
 
 const Home = ({ navigation }) => {
+  const Profils = [
+    {
+      id: "1",
+      name: "Emma",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam",
+      country: "Allemagne",
+      totalImg: 3,
+      img: "https://cdn.pixabay.com/photo/2023/07/22/04/15/motorbike-8142649_960_720.jpg",
+    },
+    {
+      id: "2",
+      name: "Marcel",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam",
+      country: "France",
+      totalImg: 5,
+      img: "https://cdn.pixabay.com/photo/2023/10/21/06/34/european-shorthair-8330819_960_720.jpg",
+    },
+    {
+      id: "3",
+      name: "Diana",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam",
+      country: "Espagne",
+      totalImg: 4,
+      img: "https://cdn.pixabay.com/photo/2024/01/07/16/27/chinese-reed-8493547_960_720.jpg",
+    },
+    {
+      id: "4",
+      name: "Diego",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed quae eum nostrum pariatur exercitationem earum natus, dolor placeat! Animi quaerat ducimus fuga sequi a culpa sit illo iste alias aperiam",
+      country: "Italie",
+      totalImg: 5,
+      img: "https://cdn.pixabay.com/photo/2017/03/24/18/59/face-2171923_960_720.jpg",
+    },
+  ];
   const handlePress = () => {
     navigation.navigate("Portfolio");
     // navigation.push("Portfolio");
   };
+
+  const renderProfils = ({ item }) => {
+    console.log(item.img);
+    return (
+      <View style={globalStyle.profilItem}>
+        <Text style={globalStyle.titleText}>{item.name}</Text>
+        <Image source={{ uri: item.img }} style={globalStyle.profilImg} />
+
+        <View style={globalStyle.infoContainer}>
+          <Text style={globalStyle.infos}>{item.country}</Text>
+          <Text style={globalStyle.infos}>{item.totalImg}</Text>
+        </View>
+      </View>
+    );
+  };
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Home</Text>
+    <View style={globalStyle.container}>
       <Button onPress={handlePress} title="Portfolio" />
+      <FlatList
+        data={Profils}
+        renderItem={renderProfils}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "lightblue",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 25,
-    fontFamily: "InriaSans_700Bold_Italic",
-  },
-});

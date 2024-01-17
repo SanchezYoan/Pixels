@@ -13,12 +13,12 @@ export const globalStyle = StyleSheet.create({
   },
   infos: {
     fontSize: 20,
-    fontFamily: "IrianSans_300Light",
+    fontFamily: "InriaSans_300Light",
   },
   titleText: {
     fontSize: 25,
     padding: 9,
-    fontFamily: "IrianSans_700Bold",
+    fontFamily: "InriaSans_700Bold",
   },
   profilImg: {
     width: 350,
@@ -26,10 +26,9 @@ export const globalStyle = StyleSheet.create({
     borderRadius: 14,
   },
   profilItem: {
-    width: 350,
-    height350,
-    borderRadius: 14,
+    padding: 15,
+    alignItems: "center",
   },
 });
 
-export default AppStyle;
+export default globalStyle;

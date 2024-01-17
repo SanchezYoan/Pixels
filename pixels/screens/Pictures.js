@@ -2,14 +2,8 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import React, { useEffect } from "react";
 
 const Pictures = ({ navigation }) => {
-  useEffect(() => {
-    return () => {
-      console.log("POP");
-    };
-  });
-
   const handlePress = () => {
-    // navigation.popToTop();
+    navigation.popToTop();
     // retourne à la page racine
     // navigation.pop();
     // retourne à la page précédente
@@ -17,7 +11,7 @@ const Pictures = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Pictures</Text>
-      <Button title="Portfolio" onPress={handlePress} />
+      <Button title="Home" onPress={handlePress} />
     </View>
   );
 };
