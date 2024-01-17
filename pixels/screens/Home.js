@@ -1,6 +1,7 @@
 import { View, Text, Button, FlatList, Image, Pressable } from "react-native";
 import React from "react";
 import { globalStyle } from "../constants/AppStyle";
+import Colors from "../constants/Colors";
 // import { Profils } from "../data/profils";
 
 // {"navigation": {
@@ -62,7 +63,10 @@ const Home = ({ navigation }) => {
   const renderProfils = ({ item }) => {
     return (
       <Pressable
-        style={globalStyle.container}
+        style={({ pressed }) => [
+          { backgroundColor: pressed ? Colors.secondary : Colors.white },
+          { alignItems: "center" },
+        ]}
         onPress={() => navigation.navigate("Portfolio", item)}
         name={item.name}
         country={item.country}
@@ -70,11 +74,6 @@ const Home = ({ navigation }) => {
       >
         <Text style={globalStyle.titleText}>{item.name}</Text>
         <Image source={{ uri: item.img }} style={globalStyle.profilImg} />
-
-        <View style={globalStyle.infoContainer}>
-          <Text style={globalStyle.infos}>{item.country}</Text>
-          <Text style={globalStyle.infos}>{item.totalImg}</Text>
-        </View>
       </Pressable>
     );
   };
