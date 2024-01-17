@@ -1,15 +1,18 @@
-import { View, Text, StyleSheet, Button } from "react-native";
-import React, { useEffect } from "react";
+import { View, Text, Image, Button } from "react-native";
+import { globalStyle } from "../constants/AppStyle";
+import React from "react";
 
-const Portfolio = ({ navigation }) => {
-  useEffect(() => {
-    return () => {
-      console.log("Portfolio démonté");
-    };
-  });
+const Portfolio = ({ navigation, route }) => {
+  const name = route.params.name;
+  const country = route.params.country;
+  const totalImg = route.params.totalImg;
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Portfolio</Text>
+    <View style={globalStyle.container}>
+      <Text style={globalStyle.titleText}>Portfolio</Text>
+      <Text style={globalStyle.text}>{name}</Text>
+      <Text style={globalStyle.text}>{country}</Text>
+      <Text style={globalStyle.text}>{totalImg}</Text>
+
       <Button
         onPress={() => navigation.navigate("Pictures")}
         title="Pictures"
@@ -19,16 +22,3 @@ const Portfolio = ({ navigation }) => {
 };
 
 export default Portfolio;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "lightgreen",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    fontFamily: "InriaSans_700Bold_Italic",
-    fontSize: 25,
-  },
-});

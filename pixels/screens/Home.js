@@ -1,4 +1,4 @@
-import { View, Text, Button, FlatList, Image } from "react-native";
+import { View, Text, Button, FlatList, Image, Pressable } from "react-native";
 import React from "react";
 import { globalStyle } from "../constants/AppStyle";
 // import { Profils } from "../data/profils";
@@ -21,9 +21,7 @@ import { globalStyle } from "../constants/AppStyle";
 // "reset": [Function anonymous],
 // "setOptions": [Function setOptions],
 //  "setParams": [Function anonymous]},
-//   "route": {"key": "Home-yFDKUZKiesc5oJe9Npl_J",
-//    "name": "Home",
-//     "params": undefined}}
+//   "route": {"key": "Home-yFDKUZKiesc5oJe9Npl_J", "name": "Home","params": undefined}}
 
 const Home = ({ navigation }) => {
   const Profils = [
@@ -60,15 +58,16 @@ const Home = ({ navigation }) => {
       img: "https://cdn.pixabay.com/photo/2017/03/24/18/59/face-2171923_960_720.jpg",
     },
   ];
-  const handlePress = () => {
-    navigation.navigate("Portfolio");
-    // navigation.push("Portfolio");
-  };
 
   const renderProfils = ({ item }) => {
-    console.log(item.img);
     return (
-      <View style={globalStyle.profilItem}>
+      <Pressable
+        style={globalStyle.container}
+        onPress={() => navigation.navigate("Portfolio", item)}
+        name={item.name}
+        country={item.country}
+        totalImg={item.totalImg}
+      >
         <Text style={globalStyle.titleText}>{item.name}</Text>
         <Image source={{ uri: item.img }} style={globalStyle.profilImg} />
 
@@ -76,12 +75,11 @@ const Home = ({ navigation }) => {
           <Text style={globalStyle.infos}>{item.country}</Text>
           <Text style={globalStyle.infos}>{item.totalImg}</Text>
         </View>
-      </View>
+      </Pressable>
     );
   };
   return (
     <View style={globalStyle.container}>
-      <Button onPress={handlePress} title="Portfolio" />
       <FlatList
         data={Profils}
         renderItem={renderProfils}

@@ -20,6 +20,10 @@ export const globalStyle = StyleSheet.create({
     padding: 9,
     fontFamily: "InriaSans_700Bold",
   },
+  text: {
+    fontSize: 20,
+    fontFamily: "InriaSans_700Bold_Italic",
+  },
   profilImg: {
     width: 350,
     height: 350,
