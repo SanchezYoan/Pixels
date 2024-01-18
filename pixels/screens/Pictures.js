@@ -1,7 +1,33 @@
-import { View, Text, StyleSheet, Button } from "react-native";
-import React, { useEffect } from "react";
+import { View, Button, Image } from "react-native";
+import { useLayoutEffect } from "react";
+import React from "react";
+import Colors from "../constants/Colors";
+import globalStyle from "../constants/AppStyle";
+
+const Logo = () => {
+  return (
+    <Image
+      source={require("../assets/img/camera.png")}
+      style={{ width: 30, height: 30 }}
+    />
+  );
+};
 
 const Pictures = ({ navigation }) => {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "Photo",
+
+      headerStyle: {
+        backgroundColor: Colors.info,
+      },
+      headerTitle: () => <Logo />,
+      headerTitleStyle: {
+        color: Colors.white,
+        fontFamily: "InriaSans_300Light_Italic",
+      },
+    });
+  }, [navigation]);
   const handlePress = () => {
     navigation.popToTop();
     // retourne à la page racine
@@ -9,24 +35,10 @@ const Pictures = ({ navigation }) => {
     // retourne à la page précédente
   };
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Pictures</Text>
+    <View style={globalStyle.container}>
       <Button title="Home" onPress={handlePress} />
     </View>
   );
 };
 
 export default Pictures;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "orange",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 25,
-    fontFamily: "InriaSans_700Bold_Italic",
-  },
-});

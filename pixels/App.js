@@ -14,6 +14,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Colors from "./constants/Colors";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +27,6 @@ export default function App() {
     InriaSans_700Bold,
     InriaSans_700Bold_Italic,
   });
-
   if (!fontsLoaded) {
     return undefined;
   } else {
@@ -34,10 +34,37 @@ export default function App() {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Portfolio" component={Portfolio} />
-        <Stack.Screen name="Pictures" component={Pictures} />
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: Colors.secondary,
+          },
+          headerTitleStyle: {
+            fontFamily: "InriaSans_300Light_Italic",
+          },
+        }}
+      >
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            title: "Home",
+          }}
+        />
+        <Stack.Screen
+          name="Portfolio"
+          component={Portfolio}
+          options={{
+            title: "Portfolio",
+          }}
+        />
+        <Stack.Screen
+          name="Pictures"
+          component={Pictures}
+          options={{
+            title: "Pictures",
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -32,3 +32,5 @@ const Profils = [
     img: "https://cdn.pixabay.com/photo/2017/03/24/18/59/face-2171923_960_720.jpg",
   },
 ];
+
+export default Profils;
