@@ -3,6 +3,7 @@ import React from "react";
 import { globalStyle } from "../constants/AppStyle";
 import Colors from "../constants/Colors";
 import Profils from "../data/profils";
+import PressableItems from "../components/PressableItems";
 
 // {"navigation": {
 //   "addListener": [Function addListener],
@@ -26,21 +27,7 @@ import Profils from "../data/profils";
 
 const Home = ({ navigation }) => {
   const renderProfils = ({ item }) => {
-    return (
-      <Pressable
-        style={({ pressed }) => [
-          { backgroundColor: pressed ? Colors.secondary : Colors.white },
-          { alignItems: "center" },
-        ]}
-        onPress={() => navigation.navigate("Portfolio", item)}
-        name={item.name}
-        country={item.country}
-        totalImg={item.totalImg}
-      >
-        <Text style={globalStyle.titleText}>{item.name}</Text>
-        <Image source={{ uri: item.img }} style={globalStyle.profilImg} />
-      </Pressable>
-    );
+    return <PressableItems item={item} navigation={navigation} />;
   };
   return (
     <View style={globalStyle.container}>

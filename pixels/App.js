@@ -54,8 +54,13 @@ export default function App() {
         <Stack.Screen
           name="Portfolio"
           component={Portfolio}
-          options={{
-            title: "Portfolio",
+          options={({ route }) => {
+            return {
+              title: `Portfolio de ${route.params.name}`,
+              headerStyle: {
+                backgroundColor: route.params.favColor,
+              },
+            };
           }}
         />
         <Stack.Screen
