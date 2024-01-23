@@ -27,7 +27,12 @@ import PressableItems from "../components/PressableItems";
 
 const Home = ({ navigation }) => {
   const renderProfils = ({ item }) => {
-    return <PressableItems item={item} navigation={navigation} />;
+    return (
+      <PressableItems
+        item={item}
+        // handleNavigate={() => navigation.navigate("Portfolio", item)}
+      />
+    );
   };
   return (
     <View style={globalStyle.container}>
