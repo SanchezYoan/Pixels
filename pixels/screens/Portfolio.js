@@ -3,6 +3,7 @@ import { globalStyle } from "../constants/AppStyle";
 import React from "react";
 import Colors from "../constants/Colors";
 import { useLayoutEffect } from "react";
+import MaterialIconsHeader from "../components/MaterialIconsHeader";
 
 const Portfolio = ({ navigation, route }) => {
   const name = route.params.name;
@@ -10,11 +11,21 @@ const Portfolio = ({ navigation, route }) => {
   const totalImg = route.params.totalImg;
   const favColor = route.params.favColor;
 
+  const handlePress = () => {
+    // HTTP request
+    return alert("OKAY");
+  };
   useLayoutEffect(() => {
     // hiérarchie des options : setOptions, options, screenOptions
     navigation.setOptions({
       // title: `Portfolio de ${name}`,
-
+      headerRight: () => (
+        <MaterialIconsHeader
+          inconName="info-outline"
+          onPressIcon={handlePress}
+          iconColor="white"
+        />
+      ),
       // headerStyle: {
       //   backgroundColor:
       //     // Plateform permet de dicerner "ios" et "andoid"
