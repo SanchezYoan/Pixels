@@ -21,7 +21,7 @@ const Portfolio = ({ navigation, route }) => {
       // title: `Portfolio de ${name}`,
       headerRight: () => (
         <MaterialIconsHeader
-          inconName="info-outline"
+          iconName="info-outline"
           onPressIcon={handlePress}
           iconColor="white"
         />

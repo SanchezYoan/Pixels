@@ -8,7 +8,7 @@ const MaterialIconsHeader = ({ onPressIcon, iconColor, iconName }) => {
       onPress={onPressIcon}
       style={({ pressed }) => pressed && styles.inconPressed}
     >
-      <MaterialIcons name="info-outline" size={24} color={iconColor} />
+      <MaterialIcons name={iconName} size={24} color={iconColor} />
     </Pressable>
   );
 };
