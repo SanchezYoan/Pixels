@@ -1,4 +1,4 @@
-import { View, Text, Button, FlatList, Image, Pressable } from "react-native";
+import { View, FlatList, Button } from "react-native";
 import React from "react";
 import { globalStyle } from "../constants/AppStyle";
 import Colors from "../constants/Colors";
@@ -34,8 +34,13 @@ const Home = ({ navigation }) => {
       />
     );
   };
+
+  // const handleDrawer = () => {
+  //   navigation.toggleDrawer();
+  // };
   return (
     <View style={globalStyle.container}>
+      {/* <Button title="Drawer" onPress={handleDrawer} /> */}
       <FlatList
         data={Profils}
         renderItem={renderProfils}

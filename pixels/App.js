@@ -17,12 +17,15 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Colors from "./constants/Colors";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Faq from "./screens/Faq";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import MaterialIconsHeader from "./components/MaterialIconsHeader";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Selected from "./screens/Selected";
 // import "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 const MyDrawer = () => {
   return (
@@ -66,6 +69,48 @@ const MyDrawer = () => {
   );
 };
 
+function MyStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.secondary,
+        },
+        headerTitleStyle: {
+          fontFamily: "InriaSans_300Light_Italic",
+        },
+      }}
+    >
+      <Stack.Screen
+        name="Drawer"
+        component={MyDrawer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Portfolio"
+        component={Portfolio}
+        options={({ route }) => {
+          return {
+            title: `Portfolio de ${route.params.name}`,
+            headerStyle: {
+              backgroundColor: route.params.favColor,
+            },
+          };
+        }}
+      />
+      <Stack.Screen
+        name="Pictures"
+        component={Pictures}
+        options={{
+          title: "Pictures",
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export default function App() {
   let [fontsLoaded] = useFonts({
     InriaSans_300Light,
@@ -82,47 +127,41 @@ export default function App() {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      <Tab.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: Colors.secondary,
+            backgroundColor: Colors.lightBrown,
           },
-          headerTitleStyle: {
-            fontFamily: "InriaSans_300Light_Italic",
-          },
+          headerTintColor: Colors.white,
+          headerShown: false,
+
+          tabBarActiveBackgroundColor: Colors.secondary,
+          tabBarShowLabel: false,
         }}
       >
-        <Stack.Screen
-          name="Drawer"
-          component={MyDrawer}
+        <Tab.Screen
+          name="Members"
+          component={MyStack}
           options={{
-            // title: "Acceuil",
-            // gestureEnabled: true,
-            // animationTypeForReplace: "push",
-            headerShown: false,
+            tabBarIcon: ({ size, color }) => (
+              <MaterialIconsHeader iconName="home" size={size} color={color} />
+            ),
           }}
         />
-        <Stack.Screen
-          name="Portfolio"
-          component={Portfolio}
-          options={({ route }) => {
-            return {
-              title: `Portfolio de ${route.params.name}`,
-              headerStyle: {
-                backgroundColor: route.params.favColor,
-              },
-              // gestureEnabled: true,
-            };
-          }}
-        />
-        <Stack.Screen
-          name="Pictures"
-          component={Pictures}
+        <Tab.Screen
+          name="Likes"
+          component={Selected}
           options={{
-            title: "Pictures",
+            tabBarIcon: ({ size, color }) => (
+              <MaterialIconsHeader
+                iconName="thumb-up"
+                size={size}
+                color={color}
+              />
+            ),
           }}
         />
-      </Stack.Navigator>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
