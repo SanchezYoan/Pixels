@@ -9,7 +9,7 @@ import {
 } from "@expo-google-fonts/inria-sans";
 import Portfolio from "./screens/Portfolio";
 import Pictures from "./screens/Pictures";
-import * as React from "react";
+import { useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
@@ -21,9 +21,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import MaterialIconsHeader from "./components/MaterialIconsHeader";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Selected from "./screens/Selected";
-import { Platform } from "react-native";
-
-// import "react-native-gesture-handler";
+import { Platform, useWindowDimensions } from "react-native";
+import { TabView, SceneMap } from "react-native-tab-view";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -113,6 +112,17 @@ function MyStack() {
   );
 }
 
+const renderScene = ({ route }) => {
+  switch (route.key) {
+    case "first":
+      return <Home />;
+    case "second":
+      return <Faq />;
+    default:
+      return null;
+  }
+};
+
 function SelectedStack() {
   return (
     <Stack.Navigator>
@@ -131,6 +141,13 @@ function SelectedStack() {
 }
 
 export default function App() {
+  const layout = useWindowDimensions();
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    { key: "first", title: "First" },
+    { key: "second", title: "Second" },
+  ]);
+
   let [fontsLoaded] = useFonts({
     InriaSans_300Light,
     InriaSans_300Light_Italic,
@@ -146,62 +163,67 @@ export default function App() {
   }
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarShowLabel: false,
-          headerStyle: {
-            backgroundColor: Colors.lightBrown,
-          },
-          headerTintColor: Colors.white,
-          tabBarActiveTintColor: Colors.lightBrown,
-          tabBarInctiveTintColor: Colors.white,
-        }}
-      >
-        <Tab.Screen
-          name="Members"
-          component={MyStack}
-          options={{
-            tabBarLabel: "Acceuil",
-            headerShown: false,
+      {/* // <Tab.Navigator
+    //     screenOptions={{
+    //       tabBarShowLabel: false,
+    //       headerStyle: {
+    //         backgroundColor: Colors.lightBrown,
+    //       },
+    //       headerTintColor: Colors.white,
+    //     }}
+    //   >
+    //     <Tab.Screen
+    //       name="Members"
+    //       component={MyStack}
+    //       options={{
+    //         tabBarLabel: "Acceuil",
+    //         headerShown: false,
 
-            tabBarIcon: ({ size, color }) => (
-              <MaterialIconsHeader iconName="home" size={size} color={color} />
-            ),
-
-            tabBarStyle: {
-              backgroundColor:
-                Platform.OS === "android" ? Colors.lightBrown : Colors.white,
-            },
-            tabBarActiveTintColor:
-              Platform.OS === "android" ? Colors.white : Colors.lightBrown,
-            tabBarInactiveTintColor:
-              Platform.OS === "android" ? Colors.white : Colors.info,
-          }}
-        />
-        <Tab.Screen
-          name="Likes"
-          component={SelectedStack}
-          options={{
-            title: "favories",
-            tabBarLabel: "Selection",
-            tabBarIcon: ({ size, color }) => (
-              <MaterialIconsHeader
-                iconName="thumb-up"
-                size={size}
-                color={color}
-              />
-            ),
-            tabBarStyle: {
-              backgroundColor:
-                Platform.OS === "android" ? Colors.lightBrown : Colors.white,
-            },
-            tabBarActiveTintColor:
-              Platform.OS === "android" ? Colors.white : Colors.lightBrown,
-            tabBarInactiveTintColor:
-              Platform.OS === "android" ? Colors.white : Colors.info,
-          }}
-        />
-      </Tab.Navigator>
+    //         tabBarIcon: ({ size, color }) => (
+    //           <MaterialIconsHeader iconName="home" size={size} color={color} />
+    //         ),
+    //         tabBarStyle: {
+    //           backgroundColor:
+    //             Platform.OS === "android" ? Colors.lightBrown : Colors.white,
+    //         },
+    //         tabBarActiveTintColor:
+    //           // Platform.OS === "android" ? Colors.white : Colors.lightBrown,
+    //           "white",
+    //         tabBarInactiveTintColor:
+    //           // Platform.OS === "android" ? Colors.white : Colors.info,
+    //           "black",
+    //       }}
+    //     />
+    //     <Tab.Screen
+    //       name="Likes"
+    //       component={SelectedStack}
+    //       options={{
+    //         title: "favories",
+    //         tabBarLabel: "Selection",
+    //         tabBarIcon: ({ size, color }) => (
+    //           <MaterialIconsHeader
+    //             iconName="thumb-up"
+    //             size={size}
+    //             color={color}
+    //           />
+    //         ),
+    //         tabBarStyle: {
+    //           backgroundColor:
+    //             Platform.OS === "android" ? Colors.lightBrown : Colors.white,
+    //         },
+    //         tabBarActiveTintColor:
+    //           Platform.OS === "android" ? Colors.white : Colors.lightBrown,
+    //         tabBarInactiveTintColor:
+    //           Platform.OS === "android" ? Colors.white : Colors.info,
+    //       }}
+    //     />
+    //   </Tab.Navigator> */}
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+      />
     </NavigationContainer>
   );
 }
