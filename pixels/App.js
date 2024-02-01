@@ -21,6 +21,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import MaterialIconsHeader from "./components/MaterialIconsHeader";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Selected from "./screens/Selected";
+import { Platform } from "react-native";
+
 // import "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
@@ -111,6 +113,23 @@ function MyStack() {
   );
 }
 
+function SelectedStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Selected"
+        component={Selected}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Photo"
+        component={Pictures}
+        options={{ title: "Photo" }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export default function App() {
   let [fontsLoaded] = useFonts({
     InriaSans_300Light,
@@ -129,29 +148,42 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
+          tabBarShowLabel: false,
           headerStyle: {
             backgroundColor: Colors.lightBrown,
           },
           headerTintColor: Colors.white,
-          headerShown: false,
-
-          tabBarActiveBackgroundColor: Colors.secondary,
-          tabBarShowLabel: false,
+          tabBarActiveTintColor: Colors.lightBrown,
+          tabBarInctiveTintColor: Colors.white,
         }}
       >
         <Tab.Screen
           name="Members"
           component={MyStack}
           options={{
+            tabBarLabel: "Acceuil",
+            headerShown: false,
+
             tabBarIcon: ({ size, color }) => (
               <MaterialIconsHeader iconName="home" size={size} color={color} />
             ),
+
+            tabBarStyle: {
+              backgroundColor:
+                Platform.OS === "android" ? Colors.lightBrown : Colors.white,
+            },
+            tabBarActiveTintColor:
+              Platform.OS === "android" ? Colors.white : Colors.lightBrown,
+            tabBarInactiveTintColor:
+              Platform.OS === "android" ? Colors.white : Colors.info,
           }}
         />
         <Tab.Screen
           name="Likes"
-          component={Selected}
+          component={SelectedStack}
           options={{
+            title: "favories",
+            tabBarLabel: "Selection",
             tabBarIcon: ({ size, color }) => (
               <MaterialIconsHeader
                 iconName="thumb-up"
@@ -159,6 +191,14 @@ export default function App() {
                 color={color}
               />
             ),
+            tabBarStyle: {
+              backgroundColor:
+                Platform.OS === "android" ? Colors.lightBrown : Colors.white,
+            },
+            tabBarActiveTintColor:
+              Platform.OS === "android" ? Colors.white : Colors.lightBrown,
+            tabBarInactiveTintColor:
+              Platform.OS === "android" ? Colors.white : Colors.info,
           }}
         />
       </Tab.Navigator>
