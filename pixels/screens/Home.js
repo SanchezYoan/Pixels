@@ -4,6 +4,7 @@ import { globalStyle } from "../constants/AppStyle";
 import Colors from "../constants/Colors";
 import Profils from "../data/profils";
 import PressableItems from "../components/PressableItems";
+import { DATA } from "../data/usersData";
 
 // {"navigation": {
 //   "addListener": [Function addListener],
@@ -42,7 +43,7 @@ const Home = ({ navigation }) => {
     <View style={globalStyle.container}>
       {/* <Button title="Drawer" onPress={handleDrawer} /> */}
       <FlatList
-        data={Profils}
+        data={DATA}
         renderItem={renderProfils}
         keyExtractor={(item) => item.id}
       />

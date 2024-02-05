@@ -23,6 +23,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Selected from "./screens/Selected";
 import { Platform, useWindowDimensions } from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
+import { StatusBar } from "expo-status-bar";
+import globalStyle from "./constants/AppStyle";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -162,68 +164,74 @@ export default function App() {
     SplashScreen.hideAsync();
   }
   return (
-    <NavigationContainer>
-      {/* // <Tab.Navigator
-    //     screenOptions={{
-    //       tabBarShowLabel: false,
-    //       headerStyle: {
-    //         backgroundColor: Colors.lightBrown,
-    //       },
-    //       headerTintColor: Colors.white,
-    //     }}
-    //   >
-    //     <Tab.Screen
-    //       name="Members"
-    //       component={MyStack}
-    //       options={{
-    //         tabBarLabel: "Acceuil",
-    //         headerShown: false,
+    <>
+      <StatusBar style="light" />
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarShowLabel: false,
+            headerStyle: {
+              backgroundColor: Colors.lightBrown,
+            },
+            headerTintColor: Colors.white,
+          }}
+        >
+          <Tab.Screen
+            name="Members"
+            component={MyStack}
+            options={{
+              tabBarLabel: "Acceuil",
+              headerShown: false,
 
-    //         tabBarIcon: ({ size, color }) => (
-    //           <MaterialIconsHeader iconName="home" size={size} color={color} />
-    //         ),
-    //         tabBarStyle: {
-    //           backgroundColor:
-    //             Platform.OS === "android" ? Colors.lightBrown : Colors.white,
-    //         },
-    //         tabBarActiveTintColor:
-    //           // Platform.OS === "android" ? Colors.white : Colors.lightBrown,
-    //           "white",
-    //         tabBarInactiveTintColor:
-    //           // Platform.OS === "android" ? Colors.white : Colors.info,
-    //           "black",
-    //       }}
-    //     />
-    //     <Tab.Screen
-    //       name="Likes"
-    //       component={SelectedStack}
-    //       options={{
-    //         title: "favories",
-    //         tabBarLabel: "Selection",
-    //         tabBarIcon: ({ size, color }) => (
-    //           <MaterialIconsHeader
-    //             iconName="thumb-up"
-    //             size={size}
-    //             color={color}
-    //           />
-    //         ),
-    //         tabBarStyle: {
-    //           backgroundColor:
-    //             Platform.OS === "android" ? Colors.lightBrown : Colors.white,
-    //         },
-    //         tabBarActiveTintColor:
-    //           Platform.OS === "android" ? Colors.white : Colors.lightBrown,
-    //         tabBarInactiveTintColor:
-    //           Platform.OS === "android" ? Colors.white : Colors.info,
-    //       }}
-    //     />
-    //   </Tab.Navigator> */}
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-      />
-    </NavigationContainer>
+              tabBarIcon: ({ size, color }) => (
+                <MaterialIconsHeader
+                  iconName="home"
+                  size={size}
+                  color={color}
+                />
+              ),
+              tabBarStyle: {
+                backgroundColor:
+                  Platform.OS === "android" ? Colors.lightBrown : Colors.white,
+              },
+              tabBarActiveTintColor:
+                Platform.OS === "android" ? Colors.white : Colors.lightBrown,
+
+              tabBarInactiveTintColor:
+                Platform.OS === "android" ? Colors.white : Colors.info,
+            }}
+          />
+          <Tab.Screen
+            name="Likes"
+            component={SelectedStack}
+            options={{
+              title: "favories",
+              tabBarLabel: "Selection",
+              tabBarIcon: ({ size, color }) => (
+                <MaterialIconsHeader
+                  iconName="thumb-up"
+                  size={size}
+                  color={color}
+                />
+              ),
+              tabBarStyle: {
+                backgroundColor:
+                  Platform.OS === "android" ? Colors.lightBrown : Colors.white,
+              },
+              tabBarActiveTintColor:
+                Platform.OS === "android" ? Colors.white : Colors.lightBrown,
+              tabBarInactiveTintColor:
+                Platform.OS === "android" ? Colors.white : Colors.info,
+            }}
+          />
+        </Tab.Navigator>
+        {/* <TabView
+           navigationState={{ index, routes }}
+           renderScene={renderScene}
+           onIndexChange={setIndex}
+           initialLayout={{ width: layout.width }}
+         /> */}
+      </NavigationContainer>
+    </>
   );
 }

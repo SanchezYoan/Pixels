@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
+import Colors from "./Colors";
 
 export const globalStyle = StyleSheet.create({
   container: {
     flex: 1,
 
-    backgroundColor: "white",
+    backgroundColor: "Colors.white",
   },
   infoContainer: {
     width: "100%",

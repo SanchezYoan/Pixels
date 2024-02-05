@@ -16,10 +16,11 @@ const PressableItems = ({ item }) => {
       onPress={() => navigation.navigate("Portfolio", item)}
       name={item.name}
       country={item.country}
-      totalImg={item.totalImg}
+      totalImg={item.photos.length}
     >
       <Text style={globalStyle.titleText}>{item.name}</Text>
       <Image source={{ uri: item.img }} style={globalStyle.profilImg} />
+      <Text>{item.photos.length}</Text>
     </Pressable>
   );
 };
