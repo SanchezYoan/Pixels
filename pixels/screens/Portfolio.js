@@ -12,16 +12,17 @@ import React from "react";
 import Colors from "../constants/Colors";
 import { useLayoutEffect } from "react";
 import MaterialIconsHeader from "../components/MaterialIconsHeader";
-
 import TouchableImage from "../components/TouchableImage";
 
 const Portfolio = ({ navigation, route }) => {
-  const name = route.params.name;
-  const country = route.params.country;
-  const photoArray = route.params.photos;
-  const profilBio = route.params.desc;
-  const profilImg = route.params.img;
-  const favColor = route.params.favColor;
+  // const name = route.params.name;
+  // const photoArray = route.params.photos;
+  // const profilBio = route.params.desc;
+  // const profilImg = route.params.img;
+  // const favColor = route.params.favColor;
+
+  // Destructuring
+  const { name, photos, desc, img, favColor } = route.params;
 
   const handlePress = () => {
     // HTTP request
@@ -56,15 +57,15 @@ const Portfolio = ({ navigation, route }) => {
   return (
     <ScrollView style={globalStyle.container}>
       <View style={{ backgroundColor: favColor, ...styles.profilInfos }}>
-        <Image source={{ uri: profilImg }} style={styles.smallprofilImg} />
+        <Image source={{ uri: img }} style={styles.smallprofilImg} />
         <Text style={styles.profilName}>{name}</Text>
       </View>
       <View style={styles.profilDescription}>
         <Text style={styles.profilTitleBio}>Bio</Text>
-        <Text style={styles.profilTextBio}>{profilBio}</Text>
+        <Text style={styles.profilTextBio}>{desc}</Text>
       </View>
       <View>
-        {photoArray.map((photo) => {
+        {photos.map((photo) => {
           return (
             <TouchableImage
               key={photo.id}

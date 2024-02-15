@@ -1,9 +1,16 @@
-import { View, Button, Image } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  Image,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import { useLayoutEffect } from "react";
 import React from "react";
 import Colors from "../constants/Colors";
 import globalStyle from "../constants/AppStyle";
-
+ 
 const Logo = () => {
   return (
     <Image
@@ -13,10 +20,17 @@ const Logo = () => {
   );
 };
 
-const Pictures = ({ navigation }) => {
+const Pictures = ({ navigation, route }) => {
+  // const url = route.params.url;
+  // const title = route.params.title;
+  // const desc = route.params.photoDesc;
+
+  // destructuring
+  const { url, title, photoDesc } = route.params;
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "Photo",
+      title: title,
 
       headerStyle: {
         backgroundColor: Colors.info,
@@ -27,7 +41,7 @@ const Pictures = ({ navigation }) => {
         fontFamily: "InriaSans_300Light_Italic",
       },
     });
-  }, [navigation]);
+  }, [navigation, title]);
   const handlePress = () => {
     navigation.popToTop();
     // retourne à la page racine
@@ -35,10 +49,31 @@ const Pictures = ({ navigation }) => {
     // retourne à la page précédente
   };
   return (
-    <View style={globalStyle.container}>
-      <Button title="Home" onPress={handlePress} />
-    </View>
+    <ScrollView style={globalStyle.container}>
+      <Image style={styles.selectedImage} source={{ uri: url }} />
+      <View style={styles.photoDesc}>
+        <Text style={globalStyle.titleText}>{title}</Text>
+        <Text style={styles.photoDescText}>{photoDesc}</Text>
+      </View>
+      {/* <Button title="Home" onPress={handlePress} /> */}
+    </ScrollView>
   );
 };
 
+const styles = StyleSheet.create({
+  selectedImage: {
+    width: "100%",
+    height: 400,
+  },
+  photoDesc: {
+    padding: 15,
+    fontSize: 25,
+    fontFamily: "InriaSans_400Regular",
+  },
+  photoDescText: {
+    fontFamily: "InriaSans_400Regular",
+    fontSize: 20,
+    padding: 9,
+  },
+});
 export default Pictures;
