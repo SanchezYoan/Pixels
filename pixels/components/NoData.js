@@ -21,10 +21,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lightBrown,
   },
   emptyMsgText: {
+    marginTop: 10,
     textAlign: "center",
-    marginTop: 5,
     fontSize: 23,
-    color: Colors.secondary,
+    color: Colors.white,
   },
 });
 export default NoData;

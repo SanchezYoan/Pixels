@@ -1,18 +1,20 @@
 import {
   View,
   Text,
-  Button,
+  Alert,
   Platform,
   Image,
   ScrollView,
   StyleSheet,
 } from "react-native";
 import { globalStyle } from "../constants/AppStyle";
-import React from "react";
+import React, { useCallback } from "react";
 import Colors from "../constants/Colors";
 import { useLayoutEffect } from "react";
 import MaterialIconsHeader from "../components/MaterialIconsHeader";
 import TouchableImage from "../components/TouchableImage";
+import { useDispatch } from "react-redux";
+import { setSelection } from "../redux/actions/actionSelection";
 
 const Portfolio = ({ navigation, route }) => {
   // const name = route.params.name;
@@ -22,20 +24,28 @@ const Portfolio = ({ navigation, route }) => {
   // const favColor = route.params.favColor;
 
   // Destructuring
-  const { name, photos, desc, img, favColor } = route.params;
+  const { name, photos, desc, img, favColor, id } = route.params;
 
-  const handlePress = () => {
+  const dispatch = useDispatch(setSelection);
+
+  const handleDispatch = useCallback(() => {
     // HTTP request
-    return alert("OKAY");
-  };
+    dispatch(setSelection(id));
+    Alert.alert(
+      "Photo enregistré",
+      "Elles sont disponibles dans votre selection",
+      [{ text: "OK" }]
+    );
+  }, [dispatch, id]);
+
   useLayoutEffect(() => {
     // hiérarchie des options : setOptions, options, screenOptions
     navigation.setOptions({
       // title: `Portfolio de ${name}`,
       headerRight: () => (
         <MaterialIconsHeader
-          iconName="info-outline"
-          onPressIcon={handlePress}
+          iconName="thumb-up"
+          onPressIcon={handleDispatch}
           iconColor="white"
         />
       ),
