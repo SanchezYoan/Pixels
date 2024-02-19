@@ -8,5 +8,6 @@ export default {
   warning: "tomato",
   secondary: "lightgrey",
   lightBrown: "salmon",
-  ghost: "#BDBDC5",
+  ghost: "#d1d1d6",
+  clicked: "#e31045",
 };

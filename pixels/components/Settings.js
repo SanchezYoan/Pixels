@@ -1,13 +1,27 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
+import React, { useState, useCallback } from "react";
 import globalStyle from "../constants/AppStyle";
 import Colors from "../constants/Colors";
 import { CustomSwitch } from "./CustomSwitch";
+import { setCategorySettings } from "../redux/actions/actionSettings";
+import { useDispatch } from "react-redux";
 
-const Settings = () => {
+const Settings = ({ closeModal }) => {
   const [isAnimals, setIsAnimals] = useState(true);
   const [isTravels, setIsTravels] = useState(true);
   const [isCars, setIsCars] = useState(true);
+  const dispatch = useDispatch();
+
+  const saveSettings = useCallback(() => {
+    const savedSettings = {
+      animals: isAnimals,
+      travel: isTravels,
+      cars: isCars,
+    };
+
+    dispatch(setCategorySettings(savedSettings));
+    closeModal();
+  }, [isAnimals, isTravels, isCars]);
 
   return (
     <View stylee={globalStyle.container}>
@@ -31,6 +45,13 @@ const Settings = () => {
         state={isCars}
         handleSwitch={(newVal) => setIsCars(newVal)}
       />
+      {isAnimals === false && isTravels === false && isCars === false ? (
+        <Text style={{ ...styles.settingsText, color: Colors.clicked }}>
+          Veuillez choisir au moins une catégorie
+        </Text>
+      ) : (
+        <Button title="Valider les paramètres" onPress={saveSettings}></Button>
+      )}
     </View>
   );
 };

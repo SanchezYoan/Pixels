@@ -49,7 +49,7 @@ const Home = ({ navigation }) => {
               style={styles.modalClose}
               color="black"
             />
-            <Settings />
+            <Settings closeModal={handleSettingsModal} />
           </View>
         </Modal>
         <FlatList

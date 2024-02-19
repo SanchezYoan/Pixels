@@ -1,11 +1,18 @@
 import { StyleSheet, Switch, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import Colors from "../constants/Colors";
 
 export const CustomSwitch = (props) => {
+  const [isEnable, setIsEnable] = useState(false);
   return (
     <View style={styles.settingsContainer}>
       <Text style={styles.settingsLabel}>{props.label}</Text>
-      <Switch value={props.state} onValueChange={props.handleSwitch} />
+      <Switch
+        value={props.state}
+        onValueChange={props.handleSwitch}
+        trackColor={{ false: Colors.lightGrey, true: Colors.clicked }}
+        thumbColor={props.state && Colors.white}
+      />
     </View>
   );
 };
@@ -18,8 +25,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     marginBottom: 14,
   },
-  //   settingsLabel: {
-  //     margin: 10,
-  //     padding: 9,
-  //   },
+  settingsLabel: {
+    fontSize: 19,
+  },
 });
