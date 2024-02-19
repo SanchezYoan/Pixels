@@ -3,9 +3,10 @@ export default {
 
   danger: "darkred",
   info: "grey",
+  lightGrey: "#767577",
   success: "seagreen",
   warning: "tomato",
   secondary: "lightgrey",
   lightBrown: "salmon",
-  ghost: "Ghost",
+  ghost: "#BDBDC5",
 };

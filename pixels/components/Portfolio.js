@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect } from 'react';
 import { Alert, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MaterialIconsHeader from '../components/MaterialIconsHeader';
 import TouchableImage from '../components/TouchableImage';
 import { setSelection } from '../redux/actions/actionSelection';
@@ -18,21 +18,39 @@ const Portfolio = ({navigation, route}) => {
    const photoArray = route.params.photos;
    const userId = route.params.id;
 
+   const selectedUser = useSelector(
+    state => state.users.selectedUsers.some( user => user.id === userId )
+   )
+
    const handleDispatch = useCallback(() => {
       dispatch(setSelection(userId));
 
-      Alert.alert(
-        "Photos enregistrées",
-        "Elles sont disponibles dans votre sélection",
-        [ { text: "OK"} ]
-      )    
-  }, [dispatch, userId])
+      if (selectedUser) {
+        Alert.alert(
+            "Photos effacées",
+            `Les photos de ${name} sont effacées`,
+            [ { text: "OK"} ]
+        )
+      } else {
+          Alert.alert(
+              "Photos enregistrées",
+              "Elles sont disponibles dans votre sélection",
+              [ { text: "OK"} ]
+          )
+      }  
+  }, [dispatch, userId, selectedUser])
 
    useLayoutEffect(() => {
     navigation.setOptions({
-        headerRight: () => <MaterialIconsHeader iconName='thumb-up' iconColor='white' onPressIcon={handleDispatch} />
+        headerRight: () => (
+          <MaterialIconsHeader 
+            iconName={selectedUser ? 'delete' : 'thumb-up'} 
+            iconColor='white' 
+            onPressIcon={handleDispatch} 
+          />
+        )
     })
-   }, [navigation])
+   }, [navigation, selectedUser])
 
    const selectPhoto = (photo) => {
     navigation.navigate('Photo', photo)

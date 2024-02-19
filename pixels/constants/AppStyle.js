@@ -4,7 +4,6 @@ import Colors from "./Colors";
 export const globalStyle = StyleSheet.create({
   container: {
     flex: 1,
-
     backgroundColor: "Colors.white",
   },
   infoContainer: {

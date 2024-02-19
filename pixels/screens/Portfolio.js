@@ -13,7 +13,7 @@ import Colors from "../constants/Colors";
 import { useLayoutEffect } from "react";
 import MaterialIconsHeader from "../components/MaterialIconsHeader";
 import TouchableImage from "../components/TouchableImage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSelection } from "../redux/actions/actionSelection";
 
 const Portfolio = ({ navigation, route }) => {
@@ -27,16 +27,26 @@ const Portfolio = ({ navigation, route }) => {
   const { name, photos, desc, img, favColor, id } = route.params;
 
   const dispatch = useDispatch(setSelection);
+  // vérifie l'existance du user dans la liste
+  const selectedUser = useSelector((state) =>
+    state.users.selectedUsers.some((user) => user.id === id)
+  );
 
   const handleDispatch = useCallback(() => {
-    // HTTP request
     dispatch(setSelection(id));
-    Alert.alert(
-      "Photo enregistré",
-      "Elles sont disponibles dans votre selection",
-      [{ text: "OK" }]
-    );
-  }, [dispatch, id]);
+
+    if (selectedUser) {
+      Alert.alert("Photos effacées", `Les photos de ${name} sont effacées`, [
+        { text: "OK" },
+      ]);
+    } else {
+      Alert.alert(
+        "Photos enregistrées",
+        "Elles sont disponibles dans votre sélection",
+        [{ text: "OK" }]
+      );
+    }
+  }, [dispatch, id, selectedUser]);
 
   useLayoutEffect(() => {
     // hiérarchie des options : setOptions, options, screenOptions
@@ -44,7 +54,7 @@ const Portfolio = ({ navigation, route }) => {
       // title: `Portfolio de ${name}`,
       headerRight: () => (
         <MaterialIconsHeader
-          iconName="thumb-up"
+          iconName={selectedUser ? "delete" : "thumb-up"}
           onPressIcon={handleDispatch}
           iconColor="white"
         />
@@ -59,7 +69,7 @@ const Portfolio = ({ navigation, route }) => {
         fontFamily: "InriaSans_300Light_Italic",
       },
     });
-  }, [navigation]);
+  }, [navigation, selectedUser]);
 
   const selectPhoto = (photo) => {
     navigation.navigate("Pictures", photo);

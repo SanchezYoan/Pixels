@@ -1,49 +1,38 @@
-import { View, FlatList, Button } from "react-native";
-import React from "react";
+import { View, FlatList, StyleSheet, Modal, Text } from "react-native";
+import React, { useLayoutEffect, useState } from "react";
 import { globalStyle } from "../constants/AppStyle";
 import Colors from "../constants/Colors";
 import PressableItems from "../components/PressableItems";
-import { DATA } from "../data/usersData";
 import { useSelector } from "react-redux";
 import NoData from "../components/NoData";
-
-// {"navigation": {
-//   "addListener": [Function addListener],
-//   "canGoBack": [Function canGoBack],
-//   "dispatch": [Function dispatch],
-//   "getId": [Function getId],
-//   "getParent": [Function getParent],
-//   "getState": [Function anonymous],
-// "goBack": [Function anonymous],
-// "isFocused": [Function isFocused],
-// "navigate": [Function anonymous],
-// "pop": [Function anonymous],
-// "popToTop": [Function anonymous],
-// "push": [Function anonymous],
-// "removeListener": [Function removeListener],
-// "replace": [Function anonymous],
-// "reset": [Function anonymous],
-// "setOptions": [Function setOptions],
-//  "setParams": [Function anonymous]},
-//   "route": {"key": "Home-yFDKUZKiesc5oJe9Npl_J", "name": "Home","params": undefined}}
+import { MaterialIcons } from "@expo/vector-icons";
+import Settings from "../components/Settings";
 
 const Home = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false);
   const selectedCategories = useSelector(
     (state) => state.users.selectedCategories
   );
 
-  const renderProfils = ({ item }) => {
-    return (
-      <PressableItems
-        item={item}
-        // handleNavigate={() => navigation.navigate("Portfolio", item)}
-      />
-    );
+  const handleSettingsModal = () => {
+    setModalVisible(!modalVisible);
   };
-
-  // const handleDrawer = () => {
-  //   navigation.toggleDrawer();
-  // };
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <MaterialIcons
+          name="settings"
+          size={24}
+          onPress={handleSettingsModal}
+          style={{ marginRight: 15 }}
+          color="white"
+        />
+      ),
+    });
+  });
+  const renderProfils = ({ item }) => {
+    return <PressableItems item={item} />;
+  };
 
   if (selectedCategories.length === 0) {
     // message d'erreur
@@ -51,7 +40,18 @@ const Home = ({ navigation }) => {
   } else {
     return (
       <View style={globalStyle.container}>
-        {/* <Button title="Drawer" onPress={handleDrawer} /> */}
+        <Modal visible={modalVisible} animationType="slide">
+          <View style={styles.modalBody}>
+            <MaterialIcons
+              name="close"
+              size={24}
+              onPress={handleSettingsModal}
+              style={styles.modalClose}
+              color="black"
+            />
+            <Settings />
+          </View>
+        </Modal>
         <FlatList
           data={selectedCategories}
           renderItem={renderProfils}
@@ -61,5 +61,20 @@ const Home = ({ navigation }) => {
     );
   }
 };
+
+const styles = StyleSheet.create({
+  modalBody: {
+    flex: 1,
+    backgroundColor: Colors.ghost,
+    marginVertical: 60,
+    padding: 20,
+    alignSelf: "center",
+    borderRadius: 10,
+    width: "90%",
+  },
+  modalClose: {
+    alignSelf: "flex-end",
+  },
+});
 
 export default Home;
